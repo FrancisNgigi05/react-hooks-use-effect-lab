@@ -1,9 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function Question({ question, onAnswered }) {
   const [timeRemaining, setTimeRemaining] = useState(10);
 
   // add useEffect code
+  useEffect(() => {
+    const countDown = setTimeout(() => {
+      // Decreasng the timer by one
+      setTimeRemaining((remainingTime) => remainingTime - 1);
+
+      // setting the condition where the timer hits 0
+      if (timeRemaining === 0) {
+        setTimeRemaining(10);
+        onAnswered(false);
+        return;
+      }
+    }, 1000);
+    return (function() {
+      clearTimeout(countDown);
+    })
+  }, [timeRemaining]);
 
   function handleAnswer(isCorrect) {
     setTimeRemaining(10);
@@ -24,7 +40,7 @@ function Question({ question, onAnswered }) {
           </button>
         );
       })}
-      <h5>{timeRemaining} seconds remaining</h5>
+      <h5>{timeRemaining} seconds remainingTime</h5>
     </>
   );
 }
