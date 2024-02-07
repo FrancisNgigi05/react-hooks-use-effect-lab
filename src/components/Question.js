@@ -15,11 +15,14 @@ function Question({ question, onAnswered }) {
         onAnswered(false);
         return;
       }
+      else {
+        (onAnswered(true));
+      }
     }, 1000);
     return (function() {
       clearTimeout(countDown);
     })
-  }, [timeRemaining]);
+  }, [timeRemaining, onAnswered]);
 
   function handleAnswer(isCorrect) {
     setTimeRemaining(10);
